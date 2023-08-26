@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/logo_viking"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".PantallaPrincipalActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="130dp"
+        android:text="VIKINGS"
+        android:textSize="50sp"
+        android:fontFamily="@font/tilt_prism_regular_variable_font_xrot_yrot"
+        android:textColor="@color/white"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Ingresar Usuario"
+        android:textSize="20sp"
+        android:fontFamily="@font/oswald_variable_font_wght"
+        android:textColor="@color/white"
+      />
+
+    <EditText
+        android:id="@+id/etUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textSize="15sp"
+        android:hint="Ingrese su nombre"
+        android:textColorHint="#615B5B"
+        android:textColor="@color/white"
+        android:fontFamily="@font/oswald_variable_font_wght"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ingresar Contraseña"
+        android:textSize="20sp"
+        android:fontFamily="@font/oswald_variable_font_wght"
+        android:textColor="@color/white"/>
+
+    <EditText
+        android:id="@+id/etPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:inputType="textPassword"
+        android:textSize="15sp"
+        android:hint="Ingrese su contraseña"
+        android:textColorHint="#615B5B"
+        android:textColor="@color/white"
+        android:fontFamily="@font/oswald_variable_font_wght"/>
+
+    <CheckBox
+        android:id="@+id/cbRecordar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recordar Usuario"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:theme="@style/Theme.AppCompat"
+        android:fontFamily="@font/oswald_variable_font_wght"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="5dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/botonRegistrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:text="Crear Usuario"
+            android:fontFamily="@font/oswald_variable_font_wght"
+            android:backgroundTint="@color/black"
+            android:layout_marginRight="15dp"/>
+
+        <Button
+            android:id="@+id/botonIniciar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:text="Iniciar Sesion"
+            android:backgroundTint="@color/black"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
