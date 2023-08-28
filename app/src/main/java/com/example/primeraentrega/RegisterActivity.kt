@@ -1,5 +1,6 @@
 package com.example.primeraentrega
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -28,6 +29,8 @@ class RegisterActivity : AppCompatActivity() {
         cbTerminos = findViewById(R.id.cbCondiciones)
         btnCrear = findViewById(R.id.btnCrear)
 
+        var usuarioCreado = false
+
         btnCrear.setOnClickListener{
             var mensaje = "Cuenta Creada"
             var nombre = etName.text.toString()
@@ -45,13 +48,26 @@ class RegisterActivity : AppCompatActivity() {
                 }else{
                     if (contraseña.equals(confirmacion) && cbTerminos.isChecked){
                         Toast.makeText(this,"- Usuario creado correctamente -", Toast.LENGTH_SHORT).show()
+                        usuarioCreado = true
                     }else{
                         Toast.makeText(this,"- No acepto las condiciones o las contraseñas no coinciden -",Toast.LENGTH_SHORT).show()
                     }
+                    if(usuarioCreado == true) {
+                        //Una vez registrado, pasa a la pantalla de Listado de personajes
+                        val intentElementList = Intent(this, ListadoPersonajesActivity::class.java)
+                        startActivity(intentElementList)
+
+                        finish()
+                    }
                 }
             }
-
-
         }
     }
+    // Sobrescribir onBackPressed para redireccionar a la actividad PantallaPrincipalActivity
+    override fun onBackPressed() {
+        val intentElementList = Intent(this, PantallaPrincipalActivity::class.java)
+        startActivity(intentElementList)
+        finish()
+    }
+
 }

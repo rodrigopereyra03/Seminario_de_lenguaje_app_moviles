@@ -13,6 +13,15 @@
         android:theme="@style/Theme.PrimeraEntrega"
         tools:targetApi="31">
         <activity
+            android:name=".ElementosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ListadoPersonajesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PersonajeActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity

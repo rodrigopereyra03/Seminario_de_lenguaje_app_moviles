@@ -46,14 +46,14 @@ class PantallaPrincipalActivity : AppCompatActivity() {
 
                 Toast.makeText(this,mensaje, Toast.LENGTH_SHORT).show()
                 //Indico a que pantalla quiero pasar
-                // val intentMain = Intent(this, RegisterActivity::class.java)
+                 val intentMain = Intent(this, ListadoPersonajesActivity::class.java)
 
                 //Le mando un valor
-                //intentMain.putExtra("nombre", nombreUsuario)
+                intentMain.putExtra("nombre", nombreUsuario)
 
-                //startActivity(intentMain)
+                startActivity(intentMain)
 
-                //finish()
+                finish()
             }
 
         }
