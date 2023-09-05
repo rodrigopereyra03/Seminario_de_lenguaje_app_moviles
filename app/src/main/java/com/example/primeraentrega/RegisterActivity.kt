@@ -54,7 +54,7 @@ class RegisterActivity : AppCompatActivity() {
                     }
                     if(usuarioCreado == true) {
                         //Una vez registrado, pasa a la pantalla de Listado de personajes
-                        val intentElementList = Intent(this, ListadoPersonajesActivity::class.java)
+                        val intentElementList = Intent(this, ListadoActivity::class.java)
                         startActivity(intentElementList)
 
                         finish()

@@ -5,20 +5,19 @@ import android.os.Bundle
 import android.widget.TextView
 
 class ElementosActivity : AppCompatActivity() {
-    lateinit var textViewNombre: TextView
-    lateinit var textViewDescripcion: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_elementos)
 
-        textViewNombre = findViewById(R.id.textViewNombre)
-        textViewDescripcion = findViewById(R.id.textViewDescripcion)
+        val personaje = intent.getParcelableExtra<Personajes>("personaje")
+        if (personaje != null){
+            val textView : TextView = findViewById(R.id.textViewNombre)
+            val textView2 : TextView = findViewById(R.id.textViewDescripcion)
 
-        val nombrePersonaje = intent.getStringExtra("nombrePersonaje")
-        val descripcionPersonaje = intent.getStringExtra("descripcionPersonaje")
+            textView.text = personaje.personaje
+            textView2.text = personaje.descripcion
+        }
 
-        textViewNombre.text = nombrePersonaje
-        textViewDescripcion.text = descripcionPersonaje
     }
 }
