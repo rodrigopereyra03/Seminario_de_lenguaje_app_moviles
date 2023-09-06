@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingBottom="10dp"
+    android:paddingBottom="5dp"
     android:paddingTop="15dp"
     >
 
@@ -57,22 +57,22 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imagenesPersonajes"
         app:layout_constraintTop_toBottomOf="@id/idPersonajeNombre" />
-
-    <View
-        android:layout_width="367dp"
-        android:layout_height="2dp"
-        android:background="#39AEBA99"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="181dp" />
+        >
 
-    <View
-        android:layout_width="367dp"
-        android:layout_height="2dp"
-        android:background="#39AEBA99"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="-1dp" />
+        <View
+            android:layout_width="300dp"
+            android:layout_height="4dp"
+            android:layout_marginStart="47dp"
+            android:background="#39AEBA99"
+            tools:layout_editor_absoluteX="16dp" />
+
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
