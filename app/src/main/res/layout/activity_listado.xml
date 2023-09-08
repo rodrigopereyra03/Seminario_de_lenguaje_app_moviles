@@ -7,6 +7,8 @@
     tools:context=".ListadoActivity"
     android:background="@drawable/wallpaper_nordico">
 
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerPersonajes"
         android:layout_width="match_parent"

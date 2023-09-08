@@ -7,6 +7,9 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+
+
 
 class PantallaPrincipalActivity : AppCompatActivity() {
     //variables para vincular la vista
@@ -15,6 +18,8 @@ class PantallaPrincipalActivity : AppCompatActivity() {
     lateinit var cbRecordar : CheckBox
     lateinit var btnRegistrar : Button
     lateinit var btnIniciar : Button
+    lateinit var toolbar : Toolbar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +31,17 @@ class PantallaPrincipalActivity : AppCompatActivity() {
         cbRecordar = findViewById(R.id.cbRecordar)
         btnRegistrar = findViewById(R.id.botonRegistrar)
         btnIniciar = findViewById(R.id.botonIniciar)
+
+
+
+        var preferencias = getSharedPreferences(resources.getString((R.string.sp_credenciales)), MODE_PRIVATE)
+        var usuarioGuardado = preferencias.getString(resources.getString(R.string.nombre_usuario),"")
+        var usuarioPassword = preferencias.getString(resources.getString(R.string.password_usuario),"")
+
+        if(usuarioGuardado !=null && usuarioPassword != ""){
+            starMainActivity(usuarioGuardado)
+        }
+
 
         //agregamos la funcionalidad
 
@@ -41,19 +57,16 @@ class PantallaPrincipalActivity : AppCompatActivity() {
                 mensaje += " - Datos Ok "
 
                 //Verifico si el checkBox esta tildado
-                if (cbRecordar.isChecked)
-                    mensaje += "- Recordar Usuario -"
-
+                if (cbRecordar.isChecked) {
+                    var preferencias = getSharedPreferences(resources.getString((R.string.sp_credenciales)), MODE_PRIVATE)
+                    preferencias.edit().putString(resources.getString(R.string.nombre_usuario),nombreUsuario).apply()
+                    preferencias.edit().putString(resources.getString(R.string.password_usuario),contraseñaUsuario).apply()
+                }
                 Toast.makeText(this,mensaje, Toast.LENGTH_SHORT).show()
                 //Indico a que pantalla quiero pasar
-                 val intentMain = Intent(this, ListadoActivity::class.java)
 
-                //Le mando un valor
-                intentMain.putExtra("nombre", nombreUsuario)
+                starMainActivity(nombreUsuario)
 
-                startActivity(intentMain)
-
-                finish()
             }
 
         }
@@ -62,12 +75,21 @@ class PantallaPrincipalActivity : AppCompatActivity() {
                 Toast.makeText(this,"Registrar usuario", Toast.LENGTH_SHORT).show()
                 //Indico a que pantalla quiero pasar
                 val intentMain = Intent(this, RegisterActivity::class.java)
-
                 startActivity(intentMain)
-
                 finish()
-
         }
 
+    }
+
+    private fun starMainActivity(usuarioGuardado: String) {
+        //Indico a que pantalla cambiar
+        val intentMain = Intent(this, MainActivity::class.java)
+
+        //Le mando un valor
+        intentMain.putExtra(resources.getString(R.string.nombre_usuario), usuarioGuardado)
+
+        startActivity(intentMain)
+
+        finish()
     }
 }
