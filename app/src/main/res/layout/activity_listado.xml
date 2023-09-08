@@ -7,9 +7,14 @@
     tools:context=".ListadoActivity"
     android:background="@drawable/wallpaper_nordico">
 
-
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/primary_layout"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="30dp"
         android:id="@+id/recyclerPersonajes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

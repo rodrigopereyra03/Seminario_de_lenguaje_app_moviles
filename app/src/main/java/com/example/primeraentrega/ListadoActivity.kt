@@ -4,7 +4,10 @@ package com.example.primeraentrega
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 
 
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +20,7 @@ class ListadoActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var personajesLista : ArrayList<Personajes>
     private lateinit var personajeAdapter : PersonajeAdapter
+    lateinit var toolbar: Toolbar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,11 +53,23 @@ class ListadoActivity : AppCompatActivity() {
 
         }
 
-
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar!!.title = resources.getString(R.string.titulo)
     }
 
 
-
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_volver, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.item_volver){
+            val intentListado = Intent(this, MainActivity::class.java)
+            startActivity(intentListado)
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
 
 }
