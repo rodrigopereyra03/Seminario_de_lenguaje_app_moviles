@@ -18,7 +18,7 @@ class PantallaPrincipalActivity : AppCompatActivity() {
     lateinit var cbRecordar : CheckBox
     lateinit var btnRegistrar : Button
     lateinit var btnIniciar : Button
-    lateinit var toolbar : Toolbar
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +32,8 @@ class PantallaPrincipalActivity : AppCompatActivity() {
         btnRegistrar = findViewById(R.id.botonRegistrar)
         btnIniciar = findViewById(R.id.botonIniciar)
 
+        // Obtener una instancia de la base de datos
+        val db = AppDataBase.getDatabase(applicationContext)
 
 
         var preferencias = getSharedPreferences(resources.getString((R.string.sp_credenciales)), MODE_PRIVATE)
@@ -62,10 +64,17 @@ class PantallaPrincipalActivity : AppCompatActivity() {
                     preferencias.edit().putString(resources.getString(R.string.nombre_usuario),nombreUsuario).apply()
                     preferencias.edit().putString(resources.getString(R.string.password_usuario),contraseñaUsuario).apply()
                 }
-                Toast.makeText(this,mensaje, Toast.LENGTH_SHORT).show()
-                //Indico a que pantalla quiero pasar
+                val userDao = db.usuarioDao()
+                val user = userDao.getUserByUsername(nombreUsuario)
 
-                starMainActivity(nombreUsuario)
+                if (user != null && user.password == contraseñaUsuario) {
+                    mensaje += " - Inicio de sesión exitoso"
+                    Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
+                    starMainActivity(nombreUsuario)
+                } else {
+                    mensaje = "Error, el usuario no existe"
+                    Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
+                }
 
             }
 

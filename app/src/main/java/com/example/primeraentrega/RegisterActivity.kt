@@ -28,6 +28,8 @@ class RegisterActivity : AppCompatActivity() {
         cbTerminos = findViewById(R.id.cbCondiciones)
         btnCrear = findViewById(R.id.btnCrear)
 
+        val db = AppDataBase.getDatabase(applicationContext) // Obtener una instancia de la base de datos
+
         var usuarioCreado = false
 
         btnCrear.setOnClickListener{
@@ -53,8 +55,13 @@ class RegisterActivity : AppCompatActivity() {
                     }
                     if(usuarioCreado == true) {
                         //Una vez registrado, pasa a la pantalla de Listado de personajes
-                        val intentElementList = Intent(this, ListadoActivity::class.java)
+                        val intentElementList = Intent(this, PantallaPrincipalActivity::class.java)
                         startActivity(intentElementList)
+
+                        // Insertar el usuario en la base de datos
+                        val userDao = db.usuarioDao()
+                        val user = Usuario(userName = nombre, password = contraseña)
+                        userDao.insertUser(user)
 
                         finish()
                     }
