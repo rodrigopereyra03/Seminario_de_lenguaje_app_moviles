@@ -1,14 +1,25 @@
 package com.example.primeraentrega
 
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.TaskStackBuilder
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
-
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 
 
 class PantallaPrincipalActivity : AppCompatActivity() {
@@ -19,8 +30,10 @@ class PantallaPrincipalActivity : AppCompatActivity() {
     lateinit var btnRegistrar : Button
     lateinit var btnIniciar : Button
 
-
-
+    //CREACION DEL CANAL
+    companion object {
+        const val CANAL_ID = "mi canal"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inicio)
@@ -59,10 +72,13 @@ class PantallaPrincipalActivity : AppCompatActivity() {
                 mensaje += " - Datos Ok "
 
                 //Verifico si el checkBox esta tildado
-                if (cbRecordar.isChecked) {
-                    var preferencias = getSharedPreferences(resources.getString((R.string.sp_credenciales)), MODE_PRIVATE)
-                    preferencias.edit().putString(resources.getString(R.string.nombre_usuario),nombreUsuario).apply()
-                    preferencias.edit().putString(resources.getString(R.string.password_usuario),contraseñaUsuario).apply()
+
+                 if (cbRecordar.isChecked) {
+                     var preferencias = getSharedPreferences(resources.getString((R.string.sp_credenciales)), MODE_PRIVATE)
+                     preferencias.edit().putString(resources.getString(R.string.nombre_usuario), nombreUsuario).apply()
+                     preferencias.edit().putString(resources.getString(R.string.password_usuario), contraseñaUsuario).apply()
+                     createChannel()
+                     createNotification()
                 }
                 val userDao = db.usuarioDao()
                 val user = userDao.getUserByUsername(nombreUsuario)
@@ -88,6 +104,52 @@ class PantallaPrincipalActivity : AppCompatActivity() {
                 finish()
         }
 
+        cbRecordar.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                // Cuando se marca el CheckBox, puedes realizar alguna acción adicional si es necesario
+                // Por ejemplo, mostrar un mensaje o ejecutar alguna otra lógica.
+                Toast.makeText(this, "Recordar usuario activado", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
+
+    private fun createChannel(){
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(CANAL_ID, "MiCanal", NotificationManager.IMPORTANCE_HIGH).apply {
+                    description = "Hola"
+            }
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun createNotification(){
+        val resultIntent = Intent(applicationContext, MainActivity::class.java)
+        val resultPendingIntent = TaskStackBuilder.create(applicationContext).run {
+            addNextIntentWithParentStack(resultIntent)
+            getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+        }
+
+
+        var builder = NotificationCompat.Builder(this,CANAL_ID).also {
+            it.setSmallIcon(R.drawable.baseline_message_24)
+            it.setContentTitle("Recordar Usuario")
+            it.setContentText("El usuario se va guardar")
+            it.priority = NotificationCompat.PRIORITY_HIGH
+            it.setContentIntent(resultPendingIntent)
+            it.setAutoCancel(true)
+        }.build()
+        val notificationManager = NotificationManagerCompat.from(this)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        notificationManager.notify(0,builder)
     }
 
     private fun starMainActivity(usuarioGuardado: String) {

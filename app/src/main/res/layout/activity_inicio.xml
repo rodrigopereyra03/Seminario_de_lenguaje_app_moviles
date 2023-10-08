@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:text="Recordar Usuario"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:backgroundTint="@color/black"
         android:theme="@style/Theme.AppCompat"
         android:fontFamily="@font/oswald_variable_font_wght"
         android:layout_marginBottom="15dp"
