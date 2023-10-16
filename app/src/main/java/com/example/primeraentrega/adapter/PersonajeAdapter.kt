@@ -20,7 +20,6 @@ class PersonajeAdapter(private val listaDePersonajes: ArrayList<Personajes>): Re
     class PersonajeViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
         val imageView : ImageView = itemView.findViewById(R.id.imagenesPersonajes)
         val textView : TextView = itemView.findViewById(R.id.idPersonajeNombre)
-        val textView2 : TextView = itemView.findViewById(R.id.idPersonajeDescripcion)
     }
      override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonajeViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_personjes,parent,false)

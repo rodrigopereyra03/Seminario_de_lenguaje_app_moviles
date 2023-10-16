@@ -19,8 +19,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var uri : Uri
     lateinit var mediaController: MediaController
     lateinit var toolbar: Toolbar
-    lateinit var botonPlay : Button
-    lateinit var botonStop : Button
+    lateinit var irAApi : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,8 +49,12 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.title = resources.getString(R.string.titulo)
 
+        irAApi = findViewById(R.id.btApi)
 
-
+        irAApi.setOnClickListener{
+            val intentElementList = Intent(this, LlamadoApiActivity::class.java)
+            startActivity(intentElementList)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
