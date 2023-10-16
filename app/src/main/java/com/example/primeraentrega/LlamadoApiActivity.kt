@@ -48,7 +48,7 @@ class LlamadoApiActivity : AppCompatActivity(), OnQueryTextListener {
             .build()
     }
 
-    //corutina
+    //coroutine
     private fun buscarPerro(query: String){
         CoroutineScope(Dispatchers.IO).launch {
             val call = getRetrofit().create(MyApi::class.java).getDogsByBreeds("$query/images")
